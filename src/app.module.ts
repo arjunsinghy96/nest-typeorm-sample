@@ -13,7 +13,14 @@ import { CommonModule } from './common/common.module';
       password: 'awesome_password',
       database: 'test',
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: false,
+      entities: [
+        'src/**/*.entity.ts'
+      ],
+      migrations: ['src/migraitons/**/*.ts'],
+      cli: {
+        migrationsDir: 'src/migrations'
+      }
     }),
     UsersModule,
     CommonModule,

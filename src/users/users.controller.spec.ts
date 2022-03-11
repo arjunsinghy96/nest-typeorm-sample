@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersController } from './users.controller';
-import { UsersService } from './users.service';
+import { UsersService } from './services/users.service';
 
 const createUserDto: CreateUserDto = {
-  firstName: 'firstName #1',
-  lastName: 'lastName #1',
+  username: 'firstName #1',
+  password: 'lastName #1',
 };
 
 describe('UsersController', () => {

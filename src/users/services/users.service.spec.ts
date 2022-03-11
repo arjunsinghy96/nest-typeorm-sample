@@ -1,23 +1,23 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { User } from './user.entity';
+import { User } from '../entities/user.entity';
 import { UsersService } from './users.service';
 import { Repository } from 'typeorm';
 
 const userArray = [
   {
-    firstName: 'firstName #1',
-    lastName: 'lastName #1',
+    username: 'firstName #1',
+    password: 'lastName #1',
   },
   {
-    firstName: 'firstName #2',
-    lastName: 'lastName #2',
+    username: 'firstName #2',
+    password: 'lastName #2',
   },
 ];
 
 const oneUser = {
-  firstName: 'firstName #1',
-  lastName: 'lastName #1',
+  username: 'firstName #1',
+  password: 'lastName #1',
 };
 
 describe('UserService', () => {
@@ -58,8 +58,8 @@ describe('UserService', () => {
 
       expect(
         service.create({
-          firstName: 'firstName #1',
-          lastName: 'lastName #1',
+          username: 'firstName #1',
+          password: 'lastName #1',
         }),
       ).resolves.toEqual(oneUser);
     });
