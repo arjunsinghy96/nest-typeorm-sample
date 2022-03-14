@@ -8,7 +8,7 @@ module.exports = {
   autoLoadEntities: true,
   synchronize: false,
   entities: ["src/**/*.entity.ts"],
-  migrations: ["src/migraitons/**/*.ts"],
+  migrations: ["dist/src/migraitons/*.js"],
   cli: {
     migrationsDir: "src/migrations",
   },

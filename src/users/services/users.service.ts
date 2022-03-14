@@ -6,6 +6,10 @@ import { User } from '../entities/user.entity';
 
 @Injectable()
 export class UsersService {
+  findByUsername(username: string): User | PromiseLike<User> {
+      return this.usersRepository.findOne({username: username});
+  }
+
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
