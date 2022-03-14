@@ -7,9 +7,12 @@ module.exports = {
   database: "test",
   autoLoadEntities: true,
   synchronize: false,
+  migrationRun: false,
   entities: ["src/**/*.entity.ts"],
-  migrations: ["dist/src/migraitons/*.js"],
+  migrations: [__dirname + "/src/migrations/*.ts"],
   cli: {
     migrationsDir: "src/migrations",
   },
+  logging: "all",
+  logger: "simple-console"
 };
