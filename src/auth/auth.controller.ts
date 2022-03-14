@@ -17,7 +17,6 @@ export class AuthController {
             throw new HttpException(err, HttpStatus.BAD_REQUEST)
         }
         return {
-            success: true,
             accessToken: accessToken
         }
     }
@@ -31,7 +30,6 @@ export class AuthController {
             throw new HttpException(err, HttpStatus.UNAUTHORIZED)
         }
         return {
-            success: true,
             accessToken: accessToken
         }
     }

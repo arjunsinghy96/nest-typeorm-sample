@@ -8,5 +8,6 @@ services:
       POSTGRES_USER: arjun.yadav
       POSTGRES_PASSWORD: awesome_password
       POSTGRES_DB: test
+    command: ["postgres", "-c", "log_statement=all"]
     ports:
       - "5432:5432"
