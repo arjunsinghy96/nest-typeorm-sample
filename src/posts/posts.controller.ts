@@ -1,9 +1,14 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreatePostDto } from './dto/create-post.dto';
 import { Posts } from './posts.entity';
 import { PostsService } from './posts.service';
 
+@ApiTags('posts')
+@ApiBearerAuth()
 @Controller('posts')
+@UseGuards(AuthGuard('jwt'))
 export class PostsController {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     constructor( private readonly postsService: PostsService) {};
@@ -14,8 +19,8 @@ export class PostsController {
     }
 
     @Get(":id")
-    async getPost(@Param("id") id: string): Promise<Posts> {
-        return this.postsService.findOne(Number(id))
+    async getPost(@Param("id") id: number): Promise<Posts> {
+        return this.postsService.findOne(id)
     }
 
     @Get(":id/comments")
@@ -24,7 +29,7 @@ export class PostsController {
     }
 
     @Post()
-    async createPost(@Body() createPostDto: CreatePostDto): Promise<Posts> {
+    async createPost(@Body("id") createPostDto: CreatePostDto): Promise<Posts> {
         return this.postsService.createPost(createPostDto);
     }
 
