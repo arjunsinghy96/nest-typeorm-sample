@@ -1,6 +1,7 @@
 import { AbstractEntity } from '../../common/base.entity';
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 import { Profile } from './profile.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User extends AbstractEntity{
@@ -15,6 +16,7 @@ export class User extends AbstractEntity{
     type: 'varchar',
     nullable: false
   })
+  @Exclude()
   password: string
 
   @Column({ default: true })
