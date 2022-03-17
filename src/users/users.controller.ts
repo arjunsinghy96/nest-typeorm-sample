@@ -1,32 +1,36 @@
-import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, UseInterceptors } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
-import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './entities/user.entity';
-import { UsersService } from './services/users.service';
+import {
+  ClassSerializerInterceptor,
+  Controller,
+  Get,
+  Logger,
+  Req,
+  UseGuards,
+  UseInterceptors,
+} from "@nestjs/common";
+import { AuthGuard } from "@nestjs/passport";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { User } from "./entities/user.entity";
+import { UsersService } from "./services/users.service";
+import {Request} from "express";
 
-@ApiTags('users')
+type UserData = {
+  id?: number
+  username: string
+}
+
+@ApiTags("users")
+@ApiBearerAuth()
 @UseInterceptors(ClassSerializerInterceptor)
-@Controller('users')
+@Controller("users")
+@UseGuards(AuthGuard("jwt"))
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.usersService.create(createUserDto);
-  }
+  private readonly logger: Logger = new Logger(UsersController.name)
 
-  @Get()
-  findAll(): Promise<User[]> {
-    return this.usersService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string): Promise<User> {
-    return this.usersService.findOne(id);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string): Promise<void> {
-    return this.usersService.remove(id);
+  @Get("self")
+  findOne(@Req() req: Request): User | PromiseLike<User> {
+    const user = req.user as UserData;
+    return this.usersService.findByUsername(user.username);
   }
 }

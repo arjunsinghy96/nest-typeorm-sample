@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Logger, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreatePostDto } from './dto/create-post.dto';
 import { Posts } from './posts.entity';
 import { PostsService } from './posts.service';
+import {Request} from 'express'
 
 @ApiTags('posts')
 @ApiBearerAuth()
@@ -13,8 +14,11 @@ export class PostsController {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     constructor( private readonly postsService: PostsService) {};
 
+    private readonly logger = new Logger(PostsController.name)
+
     @Get()
-    async getAllPosts(): Promise<Posts[]> {
+    async getAllPosts(@Req() req: Request): Promise<Posts[]> {
+        this.logger.log(req);
         return this.postsService.getAllPosts();
     }
 
