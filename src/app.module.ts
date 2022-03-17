@@ -4,18 +4,22 @@ import { UsersModule } from './users/users.module';
 // import { CommonModule } from './common/common.module';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
     TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'arjun.yadav',
-      password: 'awesome_password',
-      database: 'test',
-      autoLoadEntities: true,
+      type: "postgres",
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT) || 5432,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       synchronize: false,
+      autoLoadEntities: true,
       entities: [
         'dist/**/*.entity.ts'
       ],
