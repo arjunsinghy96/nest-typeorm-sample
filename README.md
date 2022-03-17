@@ -1,5 +1,8 @@
 ### SQL TypeORM sample
 
+This is a sample project for learning `NestJS` and `typeorm`. This is laden with vulnerabilities and bugs.
+Do not use in production.
+
 ### Installation
 
 
@@ -25,3 +28,5 @@ Then, run Nest as usual:
 
 `npm run start`
 
+
+Visit http://localhost:3000/docs to check the available APIs
